@@ -1,0 +1,25 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Boarding House  OpenAPI",
+    "description": "API Specification for Boarding House",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Didi Prasetyo",
+      "email": "didiprasetyo360@gmail.com",
+      "url": "https://prasetyodidi.github.io/"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080"
+    }
+  ],
+  "paths": {
+    
+  }
+}
