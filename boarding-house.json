@@ -20,6 +20,58 @@
     }
   ],
   "paths": {
-    
+    "/rules/{boardingHouseId}": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/boardingHouseId"
+          }
+        ],
+        "description": "get all rules",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/rulesResponseSuccess"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "boardingHouseId": {
+        "name": "boardingHouseId",
+        "description": "boarding house id",
+        "in": "path"
+      }
+    },
+    "responses": {
+      "rulesResponseSuccess": {
+        "description": "response get rules",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "required": true
+                },
+                "message": {
+                  "type": "string",
+                  "required": true
+                },
+                "data": {
+                  "type": "array",
+                  "required": true,
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
