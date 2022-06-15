@@ -30,7 +30,21 @@
         "description": "get all rules",
         "responses": {
           "200": {
-            "$ref": "#/components/responses/rulesResponseSuccess"
+            "$ref": "#/components/responses/rulesSuccessResponse"
+          }
+        }
+      }
+    },
+    "/reminder/{boardingHouseId}": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/boardingHouseId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/reminderSuccessResponse"
           }
         }
       }
@@ -45,7 +59,7 @@
       }
     },
     "responses": {
-      "rulesResponseSuccess": {
+      "rulesSuccessResponse": {
         "description": "response get rules",
         "content": {
           "application/json": {
@@ -65,6 +79,37 @@
                   "required": true,
                   "items": {
                     "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "reminderSuccessResponse": {
+        "description": "response get reminder",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "required": true
+                },
+                "message": {
+                  "type": "string",
+                  "required": true
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "reminder": {
+                      "type": "string"
+                    },
+                    "image_url": {
+                      "type": "string"
+                    }
                   }
                 }
               }
