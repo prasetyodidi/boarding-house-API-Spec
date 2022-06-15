@@ -48,6 +48,23 @@
           }
         }
       }
+    },
+    "/boarding-house": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ownerIdQuery"
+          },
+          {
+            "$ref": "#/components/parameters/tenantIdQuery"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/boardingHoseSuccessResponse"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -56,6 +73,26 @@
         "name": "boardingHouseId",
         "description": "boarding house id",
         "in": "path"
+      },
+      "ownerIdQuery": {
+        "in": "query",
+        "description": "selection boarding house by owner id",
+        "name": "ownerId",
+        "schema": {
+          "minLength": 1,
+          "type": "string",
+          "required": false
+        }
+      },
+      "tenantIdQuery": {
+        "in": "query",
+        "description": "selection boarding house by tenant id",
+        "name": "tenantId",
+        "schema": {
+          "minLength": 1,
+          "type": "string",
+          "required": false
+        }
       }
     },
     "responses": {
@@ -114,6 +151,101 @@
                 }
               }
             }
+          }
+        }
+      },
+      "boardingHoseSuccessResponse": {
+
+        "description": "success get list boarding house",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "address": {
+                        "type": "string"
+                      },
+                      "image_url": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              },
+              "required": ["status", "message", "data"]
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "room": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "required": true
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "required": true
+          },
+          "owner": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "required": false
+          },
+          "image_url": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "required": false
+          }
+        }
+      },
+      "boardingHouse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "required": true
+          },
+          "address": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "required": true
+          },
+          "owner": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "required": false
+          },
+          "image_url": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "required": false
           }
         }
       }
