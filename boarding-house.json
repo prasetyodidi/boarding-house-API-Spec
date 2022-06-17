@@ -31,6 +31,9 @@
         "responses": {
           "200": {
             "$ref": "#/components/responses/rulesSuccessResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/boardingHouseIdNotFoundResponse"
           }
         }
       }
@@ -45,6 +48,9 @@
         "responses": {
           "200": {
             "$ref": "#/components/responses/reminderSuccessResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/boardingHouseIdNotFoundResponse"
           }
         }
       }
@@ -61,7 +67,7 @@
         ],
         "responses": {
           "200": {
-            "$ref": "#/components/responses/boardingHoseSuccessResponse"
+            "$ref": "#/components/responses/boardingHouseSuccessResponse"
           }
         }
       }
@@ -146,7 +152,7 @@
           }
         }
       },
-      "boardingHoseSuccessResponse": {
+      "boardingHouseSuccessResponse": {
 
         "description": "success get list boarding house",
         "content": {
@@ -179,6 +185,25 @@
                 }
               },
               "required": ["status", "message", "data"]
+            }
+          }
+        }
+      },
+      "boardingHouseIdNotFoundResponse": {
+        "description": "boarding house id not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": ["status", "message"]
             }
           }
         }
