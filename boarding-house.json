@@ -20,8 +20,167 @@
     }
   ],
   "paths": {
+    "/user": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "create user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "fullName": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string",
+                    "minLength": 6
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "success created new user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "failed created new user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                    }
+                  }
+                },
+                "examples": {
+                  "passwordTooShort": {
+                    "value": {
+                      "status": "fail",
+                      "message": "your password is too short",
+                      "data": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/login": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs user into the system",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "required": true
+                  },
+                  "password": {
+                    "type": "string",
+                    "required": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "token": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username/password supplied"
+          }
+        }
+      }
+    },
+    "/user/logout": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "failed operation"
+          }
+        }
+      }
+    },
     "/room/{roomId}/rules": {
       "get": {
+        "tags": [
+          "room"
+        ],
         "parameters": [
           {
             "$ref": "#/components/parameters/roomId"
@@ -40,6 +199,9 @@
     },
     "/room/{roomId}/reminder": {
       "get": {
+        "tags": [
+          "room"
+        ],
         "parameters": [
           {
             "$ref": "#/components/parameters/roomId"
@@ -58,6 +220,9 @@
     "/room/{roomId}/info": {
       "description": "get detail room info",
       "get": {
+        "tags": [
+          "room"
+        ],
         "parameters": [
           {
             "$ref": "#/components/parameters/roomId"
@@ -76,6 +241,9 @@
     "/room/{roomId}/reminder-date-range": {
       "description": "date reminder",
       "get": {
+        "tags": [
+          "room"
+        ],
         "parameters": [
           {
             "$ref": "#/components/parameters/roomId"
