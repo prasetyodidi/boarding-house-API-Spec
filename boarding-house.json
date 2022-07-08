@@ -96,17 +96,7 @@
                       "type": "string"
                     },
                     "data": {
-                      "type": "object",
-                      "properties": {
-                        "start_date": {
-                          "type": "integer",
-                          "format": "int64"
-                        },
-                        "end_date": {
-                          "type": "integer",
-                          "format": "int64"
-                        }
-                      }
+                      "$ref": "#/components/schemas/dateRange"
                     }
                   }
                 },
@@ -252,19 +242,7 @@
                   "required": true
                 },
                 "data": {
-                  "type": "object",
-                  "properties": {
-                    "date_reminder": {
-                      "type": "integer",
-                      "format": "int32"
-                    },
-                    "reminders": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/reminder"
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/reminder"
                 }
               }
             },
@@ -442,6 +420,21 @@
       "reminder": {
         "type": "object",
         "properties": {
+          "date_reminder": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "reminders": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/reminderItem"
+            }
+          }
+        }
+      },
+      "reminderItem": {
+        "type": "object",
+        "properties": {
           "reminder": {
             "type": "string"
           },
@@ -476,6 +469,19 @@
             "type": "string",
             "minLength": 1,
             "maxLength": 255
+          }
+        }
+      },
+      "dateRange": {
+        "type": "object",
+        "properties": {
+          "start_date": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "end_date": {
+            "type": "integer",
+            "format": "int64"
           }
         }
       }
