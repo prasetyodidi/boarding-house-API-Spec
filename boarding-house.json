@@ -193,19 +193,7 @@
                   "required": true
                 },
                 "data": {
-                  "type": "object",
-                  "properties": {
-                    "boarding_house_name": {
-                      "type": "string"
-                    },
-                    "rules": {
-                      "type": "array",
-                      "required": true,
-                      "items": {
-                        "type": "string"
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/rule"
                 }
               }
             },
@@ -436,6 +424,21 @@
       }
     },
     "schemas": {
+      "rule": {
+        "type": "object",
+        "properties": {
+          "boarding_house_name": {
+            "type": "string"
+          },
+          "rules": {
+            "type": "array",
+            "required": true,
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
       "reminder": {
         "type": "object",
         "properties": {
