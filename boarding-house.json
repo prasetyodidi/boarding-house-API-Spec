@@ -20,11 +20,11 @@
     }
   ],
   "paths": {
-    "/rules/{boardingHouseId}": {
+    "/room/{roomId}/rules": {
       "get": {
         "parameters": [
           {
-            "$ref": "#/components/parameters/boardingHouseId"
+            "$ref": "#/components/parameters/roomId"
           }
         ],
         "description": "get all rules",
@@ -38,11 +38,11 @@
         }
       }
     },
-    "/reminder/{boardingHouseId}": {
+    "/room/{roomId}/reminder": {
       "get": {
         "parameters": [
           {
-            "$ref": "#/components/parameters/boardingHouseId"
+            "$ref": "#/components/parameters/roomId"
           }
         ],
         "responses": {
@@ -55,48 +55,7 @@
         }
       }
     },
-    "/room/{boardingHouseId}": {
-      "parameters": [
-        {
-          "$ref": "#/components/parameters/boardingHouseId"
-        }
-      ],
-      "get": {
-        "description": "get list of rooms by boarding house id",
-        "responses": {
-          "200": {
-            "description": "Success get list of rooms",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "required": true
-                    },
-                    "message": {
-                      "type": "string",
-                      "required": true
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/room"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "$ref": "#/components/responses/boardingHouseIdNotFoundResponse"
-          }
-        }
-      }
-    },
-    "/room/{roomId}": {
+    "/room/{roomId}/info": {
       "description": "get detail room info",
       "get": {
         "parameters": [
@@ -107,6 +66,75 @@
         "responses": {
           "200": {
             "$ref": "#/components/responses/detailRoomSuccessResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/roomIdNotFoundResponse"
+          }
+        }
+      }
+    },
+    "/room/{roomId}/reminder-date-range": {
+      "description": "date reminder",
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/roomId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success get date reminder",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "start_date": {
+                          "type": "integer",
+                          "format": "int64"
+                        },
+                        "end_date": {
+                          "type": "integer",
+                          "format": "int64"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "description": "success get date reminder",
+                    "value": {
+                      "status": "success",
+                      "message": "success get date reminder",
+                      "data": {
+                        "start_date": 1657317715,
+                        "end_date": 1659043363
+                      }
+                    }
+                  },
+                  "fail": {
+                    "description": "success get date reminder",
+                    "value": {
+                      "status": "fail",
+                      "message": "room id invalid",
+                      "data": {
+                        "date_reminder": 0
+                      }
+                    }
+                  }
+                }
+              }
+            }
           },
           "404": {
             "$ref": "#/components/responses/roomIdNotFoundResponse"
@@ -165,10 +193,54 @@
                   "required": true
                 },
                 "data": {
-                  "type": "array",
-                  "required": true,
-                  "items": {
-                    "type": "string"
+                  "type": "object",
+                  "properties": {
+                    "boarding_house_name": {
+                      "type": "string"
+                    },
+                    "rules": {
+                      "type": "array",
+                      "required": true,
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "examples": {
+              "Kos Putra 1": {
+                "description": "success get rules",
+                "value": {
+                  "status": "success",
+                  "message": "success get rules",
+                  "data": {
+                    "boarding_house_name": "Kos Putra 1",
+                    "rules": [
+                      "rules one",
+                      "rules two",
+                      "rules three",
+                      "rules four",
+                      "rules five"
+                    ]
+                  }
+                }
+              },
+              "Kos Putri 1": {
+                "description": "success get rules",
+                "value": {
+                  "status": "success",
+                  "message": "success get rules",
+                  "data": {
+                    "boarding_house_name": "Kos Putri 1",
+                    "rules": [
+                      "rules one",
+                      "rules two",
+                      "rules three",
+                      "rules four",
+                      "rules five"
+                    ]
                   }
                 }
               }
@@ -192,7 +264,45 @@
                   "required": true
                 },
                 "data": {
-                  "$ref": "#/components/schemas/reminder"
+                  "type": "object",
+                  "properties": {
+                    "date_reminder": {
+                      "type": "integer",
+                      "format": "int32"
+                    },
+                    "reminders": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/reminder"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "examples": {
+              "Kos Putra 1": {
+                "description": "success get reminder",
+                "value": {
+                  "status": "success",
+                  "message": "success get reminder",
+                  "data": {
+                    "date_reminder": 23,
+                    "reminders": [
+                      {
+                        "reminder": "buang sampah",
+                        "image_url": "www.example.com/imageOne"
+                      },
+                      {
+                        "reminder": "bersih bersih",
+                        "image_url": "www.example.com/imageTwo"
+                      },
+                      {
+                        "reminder": "iuran kebersihan",
+                        "image_url": "www.example.com/imageThree"
+                      }
+                    ]
+                  }
                 }
               }
             }
@@ -200,7 +310,6 @@
         }
       },
       "boardingHouseSuccessResponse": {
-
         "description": "success get list boarding house",
         "content": {
           "application/json": {
@@ -231,7 +340,11 @@
                   }
                 }
               },
-              "required": ["status", "message", "data"]
+              "required": [
+                "status",
+                "message",
+                "data"
+              ]
             }
           }
         }
@@ -250,7 +363,19 @@
                   "type": "string"
                 }
               },
-              "required": ["status", "message"]
+              "required": [
+                "status",
+                "message"
+              ]
+            },
+            "examples": {
+              "Room id invalid": {
+                "description": "failed get rules",
+                "value": {
+                  "status": "fail",
+                  "message": "room id invalid"
+                }
+              }
             }
           }
         }
@@ -269,7 +394,19 @@
                   "type": "string"
                 }
               },
-              "required": ["status", "message"]
+              "required": [
+                "status",
+                "message"
+              ]
+            },
+            "examples": {
+              "Room id invalid": {
+                "description": "failed get reminder",
+                "value": {
+                  "status": "fail",
+                  "message": "Room id invalid"
+                }
+              }
             }
           }
         }
@@ -290,7 +427,7 @@
                   "required": true
                 },
                 "data": {
-                  "$ref": "#/components/schemas/detailRoom"
+                  "$ref": "#/components/schemas/roomInfo"
                 }
               }
             }
@@ -351,7 +488,10 @@
             "maxLength": 255
           }
         },
-        "required": ["name", "value"]
+        "required": [
+          "name",
+          "value"
+        ]
       },
       "boardingHouse": {
         "type": "object",
@@ -382,37 +522,29 @@
         }
       },
       "reminder": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "reminder": {
-              "type": "string"
-            },
-            "image_url": {
-              "type": "string"
-            }
+        "type": "object",
+        "properties": {
+          "reminder": {
+            "type": "string"
+          },
+          "image_url": {
+            "type": "string"
           }
         }
       },
-      "detailRoom": {
+      "roomInfo": {
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
             "format": "int32"
           },
-          "name": {
+          "boarding_house_name": {
             "type": "string",
             "minLength": 1,
             "maxLength": 255
           },
           "owner_name": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 255
-          },
-          "tenant_name": {
             "type": "string",
             "minLength": 1,
             "maxLength": 255
@@ -426,29 +558,6 @@
             "type": "string",
             "minLength": 1,
             "maxLength": 255
-          },
-          "boarding_house_name": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 255
-          },
-          "rental_period": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "date_of_entry": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "date_out": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "facilities": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/facility"
-            }
           }
         }
       }
