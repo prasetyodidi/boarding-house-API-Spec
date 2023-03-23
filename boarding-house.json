@@ -20,7 +20,7 @@
     }
   ],
   "paths": {
-    "/user": {
+    "/register": {
       "post": {
         "tags": [
           "user"
@@ -103,7 +103,7 @@
         }
       }
     },
-    "/user/login": {
+    "/login": {
       "get": {
         "tags": [
           "user"
@@ -161,7 +161,7 @@
         }
       }
     },
-    "/user/logout": {
+    "/logout": {
       "post": {
         "tags": [
           "user"
